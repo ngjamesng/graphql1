@@ -1,22 +1,14 @@
 import React from 'react';
-import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
+import { getAuthorsQuery } from "../queries/queries";
 
-const getAuthorsQuery = gql`
-  {
-    authors {
-      name, 
-      id
-    }   
-  }
-`
 
 function AddBook() {
   const { loading, error, data } = useQuery(getAuthorsQuery);
 
   const displayAUthors = () => (
     loading
-      ? <option disabled>loading authors...</option>
+      ? <option disabled>loading authors... </option>
       : data.authors.map(author => (<option key={author.id} value={author.id}>{author.name}</option>))
   )
   return (
