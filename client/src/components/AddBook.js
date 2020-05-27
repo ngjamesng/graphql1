@@ -8,7 +8,7 @@ const INITIAL_STATE = {
   authorId: ""
 }
 function AddBook() {
-  const { loading, error, data } = useQuery(getAuthorsQuery);
+  const { loading, data } = useQuery(getAuthorsQuery);
   const [formData, setFormData] = useState(INITIAL_STATE);
 
   const [addBook] = useMutation(addBookMutation);
