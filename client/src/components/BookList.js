@@ -6,7 +6,6 @@ import BookDetails from "./BookDetails";
 function BookList() {
   const { loading, data } = useQuery(getBooksQuery);
   const [selected, setSelected] = useState(null);
-
   const displayBooks = () => (
     loading
       ? <div>loading books...</div>

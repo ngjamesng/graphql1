@@ -4,13 +4,10 @@ import { getBookQuery } from "../queries/queries";
 
 
 function BookDetails({ bookId }) {
-  const { loading, error, data } = useQuery(getBookQuery,
-    {
-      variables: { id:bookId }
-    }
-  );
-  // console.log("bookId", bookId)
-  !loading && console.log("data", data)
+  const { loading, error, data } = useQuery(getBookQuery, {
+    variables: { id: bookId }
+  });
+
   return (
     <div id="book-details">
       <p>

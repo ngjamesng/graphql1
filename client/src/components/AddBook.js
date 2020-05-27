@@ -51,8 +51,8 @@ function AddBook() {
         <label>
           Author:
         </label>
-        <select name="authorId">
-          <option> select author </option>
+        <select defaultValue="select author" name="authorId" required>
+          <option disabled> select author </option>
           {displayAUthors()}
         </select>
       </div>
