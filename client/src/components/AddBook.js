@@ -28,7 +28,7 @@ function AddBook() {
       refetchQueries: [{ query: getBooksQuery }]
     });
   }
-  const displayAUthors = () => (
+  const displayAuthors = () => (
     loading
       ? <option disabled>loading authors... </option>
       : data.authors.map(author => (<option key={author.id} value={author.id}>{author.name}</option>))
@@ -53,7 +53,7 @@ function AddBook() {
         </label>
         <select defaultValue="select author" name="authorId" required>
           <option disabled> select author </option>
-          {displayAUthors()}
+          {displayAuthors()}
         </select>
       </div>
       <button>Submit</button>
