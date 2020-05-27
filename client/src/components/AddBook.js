@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import { useQuery } from "@apollo/react-hooks";
-import { getAuthorsQuery } from "../queries/queries";
+import { useQuery, useMutation } from "@apollo/react-hooks";
+import { getAuthorsQuery, addBookMutation } from "../queries/queries";
 
-
+const INITIAL_STATE = {
+  name: "",
+  genre: "",
+  authorId: ""
+}
 function AddBook() {
   const { loading, error, data } = useQuery(getAuthorsQuery);
-  const [formData, setFormData] = useState({
-    name: "",
-    genre: "",
-    authorId: ""
-  })
+  const [formData, setFormData] = useState(INITIAL_STATE);
 
+  const [addBook] = useMutation(addBookMutation);
   const displayAUthors = () => (
     loading
       ? <option disabled>loading authors... </option>
@@ -29,6 +30,7 @@ function AddBook() {
     evt.preventDefault();
     console.log("SUBMITTED,", evt)
     console.log(formData);
+    addBook({variables: formData});
   }
   return (
     <form onSubmit={(e) => submitForm(e)} onChange={handleChange}>
@@ -36,13 +38,13 @@ function AddBook() {
         <label>
           Book Name:
         </label>
-        <input type="text" name="name"/>
+        <input type="text" name="name" />
       </div>
       <div className="field">
         <label>
           Genre:
         </label>
-        <input type="text" name="genre"/>
+        <input type="text" name="genre" />
       </div>
       <div className="field">
         <label>
