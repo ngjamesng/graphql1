@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation } from "@apollo/react-hooks";
-import { getAuthorsQuery, addBookMutation } from "../queries/queries";
+import { getAuthorsQuery, addBookMutation, getBooksQuery } from "../queries/queries";
 
 const INITIAL_STATE = {
   name: "",
@@ -12,11 +12,6 @@ function AddBook() {
   const [formData, setFormData] = useState(INITIAL_STATE);
 
   const [addBook] = useMutation(addBookMutation);
-  const displayAUthors = () => (
-    loading
-      ? <option disabled>loading authors... </option>
-      : data.authors.map(author => (<option key={author.id} value={author.id}>{author.name}</option>))
-  )
 
   const handleChange = (evt) => {
     const { name, value } = evt.target;
@@ -28,10 +23,16 @@ function AddBook() {
 
   const submitForm = (evt) => {
     evt.preventDefault();
-    console.log("SUBMITTED,", evt)
-    console.log(formData);
-    addBook({variables: formData});
+    addBook({
+      variables: formData,
+      refetchQueries: [{ query: getBooksQuery }]
+    });
   }
+  const displayAUthors = () => (
+    loading
+      ? <option disabled>loading authors... </option>
+      : data.authors.map(author => (<option key={author.id} value={author.id}>{author.name}</option>))
+  )
   return (
     <form onSubmit={(e) => submitForm(e)} onChange={handleChange}>
       <div className="field">
